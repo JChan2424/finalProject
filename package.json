@@ -30,5 +30,8 @@
     "nodemon": "^2.0.22",
     "webpack": "^5.77.0",
     "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
   }
 }
