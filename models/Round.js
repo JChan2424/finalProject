@@ -18,6 +18,9 @@ const roundSchema = new Schema({
     comments: {
         type:String, 
         maxLength:500
+    },
+    dateEntered: {
+        type: Date
     }
     
 })

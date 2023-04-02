@@ -17,7 +17,7 @@ const getSong = (req,res)=>{
         })
     }
     else if(!req.query.name && req.query.combo) {
-        Song.find({"combo":req.query.combo})
+        Song.find({"combo":req.query.combo}).exec()
         .then(results=>{
             if(!results) { // No songs matching the given name
                 res.status(404).send("No songs found"); // 404 vs. 204
@@ -32,7 +32,7 @@ const getSong = (req,res)=>{
         
     }
     else if(req.query.name && req.query.combo) {
-        Song.find({"name":req.query.name, "combo":req.query.combo})
+        Song.find({"name":req.query.name, "combo":req.query.combo}).exec()
         .then(results=>{
             if(!results) { // No songs matching the given name
                 res.status(404).send("No songs found"); // 404 vs. 204
@@ -46,26 +46,15 @@ const getSong = (req,res)=>{
         })
     }
 }
-// const getByName = (req,res)=>{ // Get a song by name
-    
-// }
-
-// const getByCombo = (req,res)=>{ // If the song name box is empty get distinct songs with or without a full combo
-    
-// }
-
-// const getByComboAndName = (req,res)=>{ // If a name and combo is given 
-    
-// }
 
 const postSong = (req,res)=>{
-    // Check if song exists first using .find
+    let newSong = Song({
+        name:req.body.name,
+        group:req.body.groupName
+    })
 }
 
 module.exports = {
     getSong,
-    // getByName,
-    // getByCombo,
-    // getByComboAndName,
     postSong
 }
