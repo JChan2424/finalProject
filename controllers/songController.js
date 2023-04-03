@@ -52,6 +52,7 @@ const postSong = (req,res)=>{
         name:req.body.name,
         group:req.body.groupName
     })
+    res.send(newSong) // Placeholder
 }
 
 module.exports = {

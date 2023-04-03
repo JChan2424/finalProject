@@ -1,11 +1,11 @@
 const router = require('express').Router({mergeParams:true});
 
-const { getByName, getByCombo, postRounds } = require('../controllers/roundController.js');
+const { getRound, postRound } = require('../controllers/roundController.js');
 
 
-router.get('/:name', getByName); 
-router.get('/full-combo', getByCombo);
-router.post('/', postRounds);
+router.get('/', getRound); 
+// router.get('/full-combo', getByCombo);
+router.post('/', postRound);
 
 module.exports = router;
 

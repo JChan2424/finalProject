@@ -5,6 +5,7 @@ const App = props => {
     
     return (
         <>
+            <h1>Welcome to the Unofficial Project Sekai Score Tracker!</h1>
         </>
     );    
 }

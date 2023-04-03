@@ -1,6 +1,6 @@
 const Round = require('../models/Round.js')
 
-const getByName = (req,res)=>{ // Get the 10 most recent rounds
+const getRound = (req,res)=>{ // Get the 10 most recent rounds
     if(req.query.name && !req.query.combo) { // Request has just the name
         Round.find({"songName":req.query.name},{ sort: {"dateEntered":-1}}).limit(10).exec()
         .then(results=>{
@@ -67,6 +67,6 @@ const postRound = (req,res)=>{
 }
 
 module.exports = {
-    getByName,
+    getRound,
     postRound
 }
