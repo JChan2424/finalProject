@@ -7,6 +7,14 @@ const roundSchema = new Schema({
         type:String,
         required:true,
     },
+    difficulty:{
+        type:String,
+        required: true
+    },
+    rank:{
+        type:Number,
+        required:true
+    },
     score: {
         type:Number,
         required:true
