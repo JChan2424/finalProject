@@ -5,7 +5,8 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
     // Parse the request query to a boolean for comparing to the value in the database
     // Do this in the validator?
     const parseToBoolean = (stringToParse) => {
-        return (req.query.fullCombo.toLowerCase() + '' === 'true') 
+        console.log(stringToParse)
+        return (stringToParse.toLowerCase() + '' === 'true') 
     }
     
     // Trim an array so that it only has ten elements.
@@ -32,7 +33,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         let roundArray = [];
         results.forEach(song=>{
             song.rounds.forEach(round => {
-                if(round.fullCombo == parseToBoolean(req.body.fullCombo)) {
+                if(round.fullCombo == parseToBoolean(req.query.fullCombo)) {
                     roundArray.push(round);
                 }
             })
@@ -88,20 +89,20 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
-                    res.send(trimmedArray)
+                    res.send(trimmedArray);
                 }
             }
-        })
+        });
         
     }
     else if(req.query.songName && req.query.fullCombo) {
-        console.log("Get by name and combo")
+        console.log("Get by name and combo");
         let roundArray = [];
         let trimmedArray = [];
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             if(results.length <=0) {
-                res.send("No rounds associated with this song or combo found.")
+                res.send("No rounds associated with this song or combo found.");
             }
             else {
                 let comboStatus = "";
@@ -113,16 +114,17 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
                 }
                 roundArray = findRoundsWithCombo(results);
                 if(roundArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`)
+                    res.send(`No songs ${comboStatus}ed found.`);
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
-                    res.send(trimmedArray)
-                }            }
+                    res.send(trimmedArray);
+                }            
+            }
         })
         .catch(error=>{
-            res.send(error)
-        })
+            res.send(error);
+        });
     }
     else if (!req.query.songName && !req.query.fullCombo) {
         res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
@@ -131,22 +133,18 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
     else {
         res.status(500).send("An errror occurred");
     }
-}
+};
 
 const postRound = (req,res)=>{
-    // console.log(req.body.so)
     Song.findOne({"name":req.body.songName}).exec()
     .then(result =>{
-        console.log(result)
         if(!result) {
             res.send("No song found. Please make sure that the song has been added to the database. You can do this by searching for the song.");
         }
         else {
             let foundSong = result;
             const date = new Date();
-            console.log(date)
-            // let entryDate = new Date(date.getFullYear(),date.getMonth()+1,date.getDate());
-            
+           
             let newRound = {
                 songName:req.body.songName,
                 difficulty:req.body.difficulty,
@@ -155,20 +153,20 @@ const postRound = (req,res)=>{
                 fullCombo:req.body.fullCombo,
                 comments:req.body.comments,
                 dateEntered:date
-            }
+            };
             foundSong.rounds.push(newRound);
             foundSong.save()
             .then(results=>{
-                res.send(results)
+                res.send(results);
             })
             .catch(error=>{
                 res.send(error);
-            })
+            });
         }
-    })
-}
+    });
+};
 
 module.exports = {
     getRound,
     postRound
-}
+};

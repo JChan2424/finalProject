@@ -9,7 +9,7 @@ const SongSearch = props => {
         <>
             <div id="song-search">
                 <h2>Search for a song</h2>
-                <form action="song/" method="GET">
+                <form action="../api/v1/songs" method="GET">
                    <label for="name">Song Name: </label>
                    <input type="text" name="name" id="name" placeholder="Song Name" />
                    <br />

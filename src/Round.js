@@ -9,7 +9,7 @@ const Round = props => {
         <>
             <div id="round">
                 <h2>Save a round</h2>
-                <form action="rounds/" method="POST">
+                <form action="../api/v1/rounds" method="POST">
                    <label for="songName">Song Name: </label>
                    <input type="text" name="songName" id="songName" placeholder="Song Name" />
                    <br />

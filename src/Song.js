@@ -10,7 +10,7 @@ const Song = props => {
         <>
             <div id="song">
                 <h2>Save a song</h2>
-                <form action="rounds/" method="POST">
+                <form action="../api/v1/songs" method="POST">
                    <label for="songName">Song Name: </label>
                    <input type="text" name="songName" id="songName" placeholder="Song Name" />
                    <br />

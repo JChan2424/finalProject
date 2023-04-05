@@ -9,7 +9,7 @@ const RoundSearch = props => {
         <>
             <div id="round-search">
                 <h2>Search for a round</h2>
-                <form action="rounds/" method="GET">
+                <form action="../api/v1/rounds" method="GET">
                    <label for="songName">Song Name: </label>
                    <input type="text" name="songName" id="songName" placeholder="Song Name" />
                    <br />

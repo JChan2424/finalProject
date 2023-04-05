@@ -2,10 +2,10 @@
 const { Song } = require('../models/Song.js');
 
 const getSong = (req,res)=>{
-    console.log("get")
+    console.log("get");
     const parseToBoolean = (stringToParse) => {
-        return (req.query.combo.toLowerCase() + '' === 'true') 
-    }
+        return (stringToParse.toLowerCase() + '' === 'true');
+    };
     
     // Trim an array so that it only has ten elements.
     // Precondition: The array parameter has been initialized
@@ -19,9 +19,8 @@ const getSong = (req,res)=>{
             i--;
             numPushed++;
         }
-        console.log(trimmedArray)
         return trimmedArray;
-    }
+    };
     
     // Find songs whose fullCombo property matches the fullCombo property sent in the request query.
     // Precondition: The results parameter is not null
@@ -35,26 +34,26 @@ const getSong = (req,res)=>{
                     // console.log(song);
                     songArray.push(song);
                 }
-            })
-        })
+            });
+        });
         return songArray;
-    }
+    };
     
     let parsedCombo = parseToBoolean(req.query.combo);
     if(req.query.name && !req.query.combo) { // Request has just the 
-        console.log("Search by name")
+        console.log("Search by name");
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
                 res.status(404).send("No songs found"); // 404 vs. 204
             }
             else {
-                res.status(200).send(results)
+                res.status(200).send(results);
             }
         })
         .catch(error=>{
-            res.status(500).send(error) // depends on the response received
-        })
+            res.status(500).send(error); // depends on the response received
+        });
     }
     else if(!req.query.name && req.query.combo) { 
         let songArray = [];
@@ -74,15 +73,15 @@ const getSong = (req,res)=>{
                 }
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`)
+                    res.send(`No songs ${comboStatus}ed found.`);
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);
-                    res.send(trimmedArray)
+                    res.send(trimmedArray);
                 }
                 
             }
-        })
+        });
     }
     else if(req.query.name && req.query.combo) {
         let songArray = [];
@@ -102,14 +101,14 @@ const getSong = (req,res)=>{
                 }
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`)
+                    res.send(`No songs ${comboStatus}ed found.`);
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);
-                    res.send(trimmedArray)
+                    res.send(trimmedArray);
                 }
             }
-        })
+        });
     }
     
     else if (!req.query.songName && !req.query.fullCombo) {
@@ -119,14 +118,13 @@ const getSong = (req,res)=>{
     else {
         res.status(500).send("An errror occurred");
     }
-}
+};
 
 const postSong = (req,res)=>{
     Song.findOne({"name":req.body.name}, {"group":req.body.group}).exec()
     .then(results=>{
-        console.log(results)
         if(results == null) {
-            console.log("No duplicates")
+            console.log("No duplicates");
             let newSong = Song({
                 name:req.body.name,
                 group:req.body.group,
@@ -141,13 +139,13 @@ const postSong = (req,res)=>{
             });
         }
         else {
-            res.send("This song already exists. Please try adding another.")
+            res.send("This song already exists. Please try adding another.");
         }
         
     })
     .catch(error=>{
         res.send(error);
-    })
+    });
 };
 
 module.exports = {
