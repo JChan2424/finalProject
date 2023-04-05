@@ -39,6 +39,7 @@ const getSong = (req,res)=>{
         })
         return songArray;
     }
+    
     let parsedCombo = parseToBoolean(req.query.combo);
     if(req.query.name && !req.query.combo) { // Request has just the 
         console.log("Search by name")
@@ -110,6 +111,11 @@ const getSong = (req,res)=>{
             }
         })
     }
+    
+    else if (!req.query.songName && !req.query.fullCombo) {
+        res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
+    }
+    
     else {
         res.status(500).send("An errror occurred");
     }

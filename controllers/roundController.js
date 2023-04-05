@@ -124,6 +124,13 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
             res.send(error)
         })
     }
+    else if (!req.query.songName && !req.query.fullCombo) {
+        res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
+    }
+    
+    else {
+        res.status(500).send("An errror occurred");
+    }
 }
 
 const postRound = (req,res)=>{
