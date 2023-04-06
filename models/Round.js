@@ -11,7 +11,7 @@ const roundSchema = new Schema({
         type:String,
         required: true
     },
-    rank:{
+    level:{
         type:Number,
         required:true
     },

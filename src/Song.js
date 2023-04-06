@@ -5,30 +5,59 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const Song = props => {
-    
+    let name;
+    let group;
+    const updateName = event => {
+        name = "";
+        name = event.target.value;
+        console.log("name: ",name)
+    }
+    const updateGroup = event => {
+        group = "";
+        group = event.target.value;
+    }
+    const makePostRequest = (event) => {
+        event.preventDefault();
+        
+        let newSong ={}
+        axios.post(`../api/v1/songs/`, {
+            name:name,
+            group:group
+        })
+        .then(results => {
+            console.log("Post song")
+            props.setResults(results);
+            props.setRequestType("POST Song");
+            console.log(results)
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+    // onSubmit={event=>makePostRequest(event)}
     return (
         <>
             <div id="song">
                 <h2>Save a song</h2>
-                <form action="../api/v1/songs" method="POST">
-                   <label for="songName">Song Name: </label>
-                   <input type="text" name="songName" id="songName" placeholder="Song Name" />
+                <form onSubmit={event=>makePostRequest(event)}>
+                   <label htmlFor="songName">Song Name: </label>
+                   <input type="text" name="songName" id="songName" required placeholder="Song Name" onChange={event=>updateName(event)}/>
                    <br />
                    <legend>Group: </legend>
-                   <label for="l/n">L/N: </label>
-                   <input type="radio" id="l/n" name="group" value="L/N"/>
-                   <label for="mmj">MMJ: </label>
-                   <input type="radio" id="mmj" name="group" value="MMJ"/>
-                   <label for="vbs">VBS: </label>
-                   <input type="radio" id="vbs" name="group" value="VBS"/>
-                   <label for="wxs">WXS: </label>
-                   <input type="radio" id="wxs" name="group" value="WXS"/>
-                   <label for="n25">N25: </label>
-                   <input type="radio" id="n25" name="group" value="N25"/>
-                   <label for="vs">VS: </label>
-                   <input type="radio" id="vs" name="group" value="VS"/>
-                   <label for="other">Other: </label>
-                   <input type="radio" id="other" name="group" value="other"/>
+                   <label htmlFor="l/n">L/N: </label>
+                   <input type="radio" id="l/n" name="group" value="L/N" required onChange={event=>updateGroup(event)} />
+                   <label htmlFor="mmj">MMJ: </label>
+                   <input type="radio" id="mmj" name="group" value="MMJ" onChange={event=>updateGroup(event)}/>
+                   <label htmlFor="vbs">VBS: </label>
+                   <input type="radio" id="vbs" name="group" value="VBS" onChange={event=>updateGroup(event)}/>
+                   <label htmlFor="wxs">WXS: </label>
+                   <input type="radio" id="wxs" name="group" value="WXS" onChange={event=>updateGroup(event)}/>
+                   <label htmlFor="n25">N25: </label>
+                   <input type="radio" id="n25" name="group" value="N25" onChange={event=>updateGroup(event)}/>
+                   <label htmlFor="vs">VS: </label>
+                   <input type="radio" id="vs" name="group" value="VS" onChange={event=>updateGroup(event)}/>
+                   <label htmlFor="other">Other: </label>
+                   <input type="radio" id="other" name="group" value="other" onChange={event=>updateGroup(event)} />
                    <br />
                    <input type="submit" value="Search" />  <input type="reset" />
                 </form>

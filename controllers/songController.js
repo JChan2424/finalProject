@@ -2,7 +2,7 @@
 const { Song } = require('../models/Song.js');
 
 const getSong = (req,res)=>{
-    console.log("get");
+    console.log("getSong query ", req.query);
     const parseToBoolean = (stringToParse) => {
         return (stringToParse.toLowerCase() + '' === 'true');
     };
@@ -38,8 +38,11 @@ const getSong = (req,res)=>{
         });
         return songArray;
     };
+    let parsedCombo;
+    if(req.query.combo) {
+        parsedCombo = parseToBoolean(req.query.combo);
+    }
     
-    let parsedCombo = parseToBoolean(req.query.combo);
     if(req.query.name && !req.query.combo) { // Request has just the 
         console.log("Search by name");
         Song.find({"name":req.query.name}).exec()
@@ -139,7 +142,13 @@ const postSong = (req,res)=>{
             });
         }
         else {
-            res.send("This song already exists. Please try adding another.");
+            Song.find({}).exec()
+            .then(results => {
+                res.send(results);
+            })
+            .catch(error => {
+                res.send(error)
+            })
         }
         
     })

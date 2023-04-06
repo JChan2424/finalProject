@@ -19,7 +19,7 @@ const postRoundValidator = (req, res, next) => {
                 enum:["easy", "normal", "hard", "expert", "master"],
                 errorMessage: 'Unrecognized difficulty. Please try again.'
             },
-            rank: {
+            level: {
                 // The song level (ex. Lv. 14)
                 type: 'number',
                 errorMessage: 'Invalid song level entered. Please try again'

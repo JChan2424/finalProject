@@ -5,7 +5,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
     // Parse the request query to a boolean for comparing to the value in the database
     // Do this in the validator?
     const parseToBoolean = (stringToParse) => {
-        console.log(stringToParse)
+        // console.log(stringToParse)
         return (stringToParse.toLowerCase() + '' === 'true') 
     }
     
@@ -21,7 +21,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
             i--;
             numPushed++;
         }
-        console.log(trimmedArray)
+        // console.log(trimmedArray)
         return trimmedArray;
     }
     
@@ -40,11 +40,14 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         })
         return roundArray;
     }
-    let parsedCombo = parseToBoolean(req.query.fullCombo);
+    let parsedCombo;
+    if(req.query.fullCombo) {
+        parsedCombo = parseToBoolean(req.query.fullCombo);
+    }
     if(req.query.songName && !req.query.fullCombo) { // Request has just the name
         let arrayOfRounds = []; //Store the rounds here
         let trimmedArray = []; // Array trimmed to no more than 10 elements
-        console.log(req.query.songName)
+        // console.log(req.query.songName)
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             console.log("Get based on name")
@@ -126,7 +129,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
             res.send(error);
         });
     }
-    else if (!req.query.songName && !req.query.fullCombo) {
+    else if ((!req.query.songName && !req.query.fullCombo) || (req.query.songName == undefined && req.query.fullCombo == undefined)) {
         res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
     }
     
@@ -148,7 +151,7 @@ const postRound = (req,res)=>{
             let newRound = {
                 songName:req.body.songName,
                 difficulty:req.body.difficulty,
-                rank:req.body.rank,
+                level:req.body.level,
                 score:req.body.score,
                 fullCombo:req.body.fullCombo,
                 comments:req.body.comments,
@@ -157,7 +160,7 @@ const postRound = (req,res)=>{
             foundSong.rounds.push(newRound);
             foundSong.save()
             .then(results=>{
-                res.send(results);
+                res.send(newRound);
             })
             .catch(error=>{
                 res.send(error);

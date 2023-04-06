@@ -4,22 +4,45 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const SongSearch = props => {
-    
+    // action="../api/v1/songs" method="GET"
+    let name;
+    let combo;
+    const updateName = event => {
+        name = "";
+        name = event.target.value;
+        console.log("SongSearch name: ", name)
+    }
+    const updateCombo = event => {
+        combo ="";
+        combo = event.target.value;
+    }
+    const makeGetRequest = (event) => {
+        event.preventDefault();
+        axios.get(`../api/v1/songs/?name=${name}&combo=${combo}`)
+        .then(results => {
+            props.setResults(results);
+            props.setRequestType("GET Song");
+        })
+        .catch(error => {
+            props.setResults(error);
+        })
+    }
     return (
         <>
             <div id="song-search">
                 <h2>Search for a song</h2>
-                <form action="../api/v1/songs" method="GET">
-                   <label for="name">Song Name: </label>
-                   <input type="text" name="name" id="name" placeholder="Song Name" />
+                <form onSubmit={event=>makeGetRequest(event)}>
+                   <label htmlFor="name">Song Name: </label>
+                   <input type="text" name="name" id="name" placeholder="Song Name" onChange={event => updateName(event)}/>
                    <br />
                    <legend>Full combo: </legend>
-                   <label for="full-combo">Yes: </label>
-                   <input type="radio" id="full-combo" name="combo" value="true" />
-                   <label for="not-full">No: </label>
-                   <input type="radio" id="not-full" name="combo" value="false" />
+                   <label htmlFor="full-combo">Yes: </label>
+                   <input type="radio" id="full-combo" name="combo" value="true" onChange={event => updateCombo(event)} />
+                   <label htmlFor="not-full">No: </label>
+                   <input type="radio" id="not-full" name="combo" value="false" onChange={event => updateCombo(event)} />
                     <br />
-                   <input type="submit" value="Search" />  <input type="reset" />
+                    <input type="submit" value="Search" action="../api/v1/songs" method="GET" /> <input type="reset" />
+                   {/*<button onClick={makeGetRequest}>Search</button>  */}
                 </form>
             </div>
         </>
