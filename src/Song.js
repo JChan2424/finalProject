@@ -59,7 +59,7 @@ const Song = props => {
                    <label htmlFor="other">Other: </label>
                    <input type="radio" id="other" name="group" value="other" onChange={event=>updateGroup(event)} />
                    <br />
-                   <input type="submit" value="Search" />  <input type="reset" />
+                   <input type="submit" value="Submit" />  <input type="reset" />
                 </form>
             </div>
         </>

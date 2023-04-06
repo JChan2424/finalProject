@@ -8540,13 +8540,13 @@ var Round = function Round(props) {
     name: "comments",
     id: "comments",
     cols: "30",
-    rows: "10",
+    rows: "2",
     onChange: function onChange(event) {
       return updateComments(event);
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
-    value: "Search"
+    value: "Submit"
   }), "  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "reset"
   }))));
@@ -8782,7 +8782,7 @@ var Song = function Song(props) {
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
-    value: "Search"
+    value: "Submit"
   }), "  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "reset"
   }))));

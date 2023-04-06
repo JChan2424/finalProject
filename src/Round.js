@@ -96,8 +96,9 @@ const Round = props => {
                    <input type="radio" id="not-full" name="fullCombo" value="false" onChange={event=>updateCombo(event)}/>
                    <br />
                    <label htmlFor="comments">Additional comments: </label>
-                   <textarea name="comments" id="comments" cols="30" rows="10"onChange={event=>updateComments(event)}></textarea>
-                   <input type="submit" value="Search" />  <input type="reset" />
+                   <textarea name="comments" id="comments" cols="30" rows="2"onChange={event=>updateComments(event)}></textarea>
+                   <br />
+                   <input type="submit" value="Submit" />  <input type="reset" />
                 </form>
             </div>
         </>

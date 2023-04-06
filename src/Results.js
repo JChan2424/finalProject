@@ -27,7 +27,6 @@ const Results = props => {
         <>
             
             {componentToRender}
-            
         </>
     )
 };
