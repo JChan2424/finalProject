@@ -33,7 +33,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         let roundArray = [];
         results.forEach(song=>{
             song.rounds.forEach(round => {
-                if(round.fullCombo == parseToBoolean(req.query.fullCombo)) {
+                if(round.fullCombo == req.query.fullCombo) {
                     roundArray.push(round);
                 }
             })
@@ -41,13 +41,10 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         return roundArray;
     }
     let parsedCombo;
-    if(req.query.fullCombo) {
-        parsedCombo = parseToBoolean(req.query.fullCombo);
-    }
+    
     if(req.query.songName && !req.query.fullCombo) { // Request has just the name
         let arrayOfRounds = []; //Store the rounds here
         let trimmedArray = []; // Array trimmed to no more than 10 elements
-        // console.log(req.query.songName)
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             console.log("Get based on name")
@@ -100,6 +97,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
     }
     else if(req.query.songName && req.query.fullCombo) {
         console.log("Get by name and combo");
+        console.log(req.query.fullCombo)
         let roundArray = [];
         let trimmedArray = [];
         Song.find({"name":req.query.songName}).exec()
@@ -109,7 +107,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
             }
             else {
                 let comboStatus = "";
-                if(parsedCombo) { // If the user is looking for rounds with a full combo
+                if(req.query.fullCombo) { // If the user is looking for rounds with a full combo
                     comboStatus = "full-combo";
                 }
                 else { // If the user is looking for rounds without a full combo

@@ -23,6 +23,7 @@ const Round = props => {
     
     const updateCombo = event => {
         props.setFullCombo(event.target.value);
+        console.log(props.fullCombo)
     };
     
     const updateComments = event => {
