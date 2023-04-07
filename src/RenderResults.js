@@ -17,21 +17,21 @@ const RenderResults = props => {
     
     
     let error = <div></div>
-    if(props.results.errors) {
-        error = <p>{props.results.error._message}</p>;
+    if(props.results._message) {
+        error = <p>{props.results._message}</p>;
     }
     return(
         <>
             <h2>Results</h2>
             
             <div id="results-container" >
-                {props.requestType == "POST Round"? <SuccessfulRoundPost results={props.results}/> : <div></div>}
-                {props.requestType == "POST Song"? <SuccessfulSongPost results={props.results}/> : <div></div>}
-                {props.requestType == "GET Song"? <SuccessfulSongGet results={props.results}/> : <div></div>}
-                {props.requestType == "GET Round"? <SuccessfulRoundGet results={props.results}/> : <div></div>}
-                
+                {props.requestType == "POST Round" && !props.results._message ? <SuccessfulRoundPost results={props.results}/> : <div></div>}
+                {props.requestType == "POST Song" && !props.results._message ? <SuccessfulSongPost results={props.results}/> : <div></div>}
+                {props.requestType == "GET Song"&& !props.results._message ? <SuccessfulSongGet results={props.results}/> : <div></div>}
+                {props.requestType == "GET Round" && !props.results._message ? <SuccessfulRoundGet results={props.results}/> : <div></div>}
+                {props.results._message ? <p>{props.results._message}</p> : <div></div>}
             </div>
-            {error}
+            
             
             
         </>

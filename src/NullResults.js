@@ -11,26 +11,14 @@ const NullResults = props => {
         // console.log(stringToParse)
         return (stringToParse.toLowerCase() + '' === 'true') 
     }
-    // props.setShow(parseToBoolean(props.show));
-    // if(props.show) {
-    //     document.getElementById("results-container").style.visibility = "visible";
-    // }
-    // else {
-    //     document.getElementById("results-container").style.visibility = "hidden";
-    // }
-    /*
-        <form>
-                <label htmlFor="show">Show Game Facts</label>
-                <input type="checkbox" id="show" name="show" value="show" onChange={event=>updateShow(event)} />
-            </form>
-    
-    */
     return(
         <>
             <h2>About the game</h2>
             
             <div id="results-container">
-                <p>Project Sekai is a rhythmn game.</p>
+                <p>Hatsune Miku Project Sekai: Colorful Stage is a rhythmn game developed by SEGA, Craft Egg, Colorful Palette and Crypton Future media. It takes place in a fictional Tokyo, Japan and features new original characters and familiar Vocaloid characters. </p>
+                <a href='https://www.colorfulstage.com/'>Check out more info here!</a>
+               
             </div>
         </>
     )

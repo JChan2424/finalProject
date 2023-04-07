@@ -6,7 +6,7 @@ const SuccessfulRoundPost = props => {
     console.log("name", props.results);
     let fullCombo;
     
-    if(props.results.fullCombo == "true") {
+    if(props.results.fullCombo == true) {
         fullCombo = "Yes";
     } 
     else {

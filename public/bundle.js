@@ -8271,23 +8271,11 @@ var NullResults = function NullResults(props) {
     // console.log(stringToParse)
     return stringToParse.toLowerCase() + '' === 'true';
   };
-  // props.setShow(parseToBoolean(props.show));
-  // if(props.show) {
-  //     document.getElementById("results-container").style.visibility = "visible";
-  // }
-  // else {
-  //     document.getElementById("results-container").style.visibility = "hidden";
-  // }
-  /*
-      <form>
-              <label htmlFor="show">Show Game Facts</label>
-              <input type="checkbox" id="show" name="show" value="show" onChange={event=>updateShow(event)} />
-          </form>
-  
-  */
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "About the game"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "results-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Project Sekai is a rhythmn game.")));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Hatsune Miku Project Sekai: Colorful Stage is a rhythmn game developed by SEGA, Craft Egg, Colorful Palette and Crypton Future media. It takes place in a fictional Tokyo, Japan and features new original characters and familiar Vocaloid characters. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    href: "https://www.colorfulstage.com/"
+  }, "Check out more info here!")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NullResults);
 
@@ -8326,20 +8314,20 @@ var RenderResults = function RenderResults(props) {
   var heading;
   var summary = document.getElementById("results-container");
   var error = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null);
-  if (props.results.errors) {
-    error = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, props.results.error._message);
+  if (props.results._message) {
+    error = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, props.results._message);
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Results"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "results-container"
-  }, props.requestType == "POST Round" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulRoundPost_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, props.requestType == "POST Round" && !props.results._message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulRoundPost_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
     results: props.results
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "POST Song" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulSongPost_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "POST Song" && !props.results._message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulSongPost_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
     results: props.results
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "GET Song" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulSongGet_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "GET Song" && !props.results._message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulSongGet_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
     results: props.results
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "GET Round" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulRoundGet_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.requestType == "GET Round" && !props.results._message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SuccessfulRoundGet_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
     results: props.results
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null)), error);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null), props.results._message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, props.results._message) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RenderResults);
 
@@ -8937,7 +8925,6 @@ var SuccessfulRoundGet = function SuccessfulRoundGet(props) {
   } else {
     fullCombo = "No";
   }
-  // https://www.g2i.co/blog/understanding-the-objects-are-not-valid-as-a-react-child-error-in-react
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Round(s) Retrieved Successfully!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Round Summary: "), props.results.map(function (round) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "round-output",
@@ -8967,7 +8954,7 @@ var useEffect = (react__WEBPACK_IMPORTED_MODULE_0___default().useEffect),
 var SuccessfulRoundPost = function SuccessfulRoundPost(props) {
   console.log("name", props.results);
   var fullCombo;
-  if (props.results.fullCombo == "true") {
+  if (props.results.fullCombo == true) {
     fullCombo = "Yes";
   } else {
     fullCombo = "No";
@@ -9040,8 +9027,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Montserrat&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n    font-family: sans-serif;\n}\n\ninput {\n    margin: 10px;\n}\n\n/*#wrapper {*/\n/*    display: grid;*/\n/*    grid-template-columns: repeat(3, 1fr);*/\n/*    gap: 10px;*/\n/*    grid-auto-rows: minmax(100px, auto);*/\n/*}*/\n\n/*#song {*/\n/*    grid-column: 1 / 3;*/\n/*    grid-row: 1; */\n/*}*/\n\n/*#song-search {*/\n/*    grid-column: 2 / 4;*/\n/*    grid-row: 1; */\n/*}*/\n\n/*#round {*/\n/*    grid-column: 1 / 3;*/\n/*    grid-row: 2; */\n/*}*/\n\n/*#round-search{*/\n/*    grid-column: 2 / 4;*/\n/*    grid-row: 2; */\n/*}*/", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;AAC3B;;AAEA;IACI,YAAY;AAChB;;AAEA,aAAa;AACb,qBAAqB;AACrB,6CAA6C;AAC7C,iBAAiB;AACjB,2CAA2C;AAC3C,IAAI;;AAEJ,UAAU;AACV,0BAA0B;AAC1B,oBAAoB;AACpB,IAAI;;AAEJ,iBAAiB;AACjB,0BAA0B;AAC1B,oBAAoB;AACpB,IAAI;;AAEJ,WAAW;AACX,0BAA0B;AAC1B,oBAAoB;AACpB,IAAI;;AAEJ,iBAAiB;AACjB,0BAA0B;AAC1B,oBAAoB;AACpB,IAAI","sourcesContent":["body {\n    font-family: sans-serif;\n}\n\ninput {\n    margin: 10px;\n}\n\n/*#wrapper {*/\n/*    display: grid;*/\n/*    grid-template-columns: repeat(3, 1fr);*/\n/*    gap: 10px;*/\n/*    grid-auto-rows: minmax(100px, auto);*/\n/*}*/\n\n/*#song {*/\n/*    grid-column: 1 / 3;*/\n/*    grid-row: 1; */\n/*}*/\n\n/*#song-search {*/\n/*    grid-column: 2 / 4;*/\n/*    grid-row: 1; */\n/*}*/\n\n/*#round {*/\n/*    grid-column: 1 / 3;*/\n/*    grid-row: 2; */\n/*}*/\n\n/*#round-search{*/\n/*    grid-column: 2 / 4;*/\n/*    grid-row: 2; */\n/*}*/"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "h1 {\n    text-align: center;\n    font-family: 'M PLUS 1p', sans-serif;\n}\n\nh2, h3, h4, input, textarea {\n    font-family: 'M PLUS 1p', sans-serif;\n}\n\nform, p, button, a{\n    font-family: 'Montserrat', sans-serif;\n}\n\na {\n    text-decoration: none\n}\n\ninput {\n    margin: 5px;\n}\n\n#wrapper {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 10px;\n    grid-auto-rows: minmax(100px, auto);\n}\n\n#song {\n    grid-column: 1 / 3;\n    grid-row: 1; \n}\n\n#song-search {\n    grid-column: 2 / 4;\n    grid-row: 1; \n}\n\n#round {\n    grid-column: 1 / 3;\n    grid-row: 2; \n}\n\n#round-search{\n    grid-column: 2 / 4;\n    grid-row: 2; \n}\n\n#round-container {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(230, 115,169);\n}\n\n#song-container {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(103,249,217);\n}\n\n#output {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(133,176,231);\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAGA;IACI,kBAAkB;IAClB,oCAAoC;AACxC;;AAEA;IACI,oCAAoC;AACxC;;AAEA;IACI,qCAAqC;AACzC;;AAEA;IACI;AACJ;;AAEA;IACI,WAAW;AACf;;AAEA;IACI,aAAa;IACb,qCAAqC;IACrC,SAAS;IACT,mCAAmC;AACvC;;AAEA;IACI,kBAAkB;IAClB,WAAW;AACf;;AAEA;IACI,kBAAkB;IAClB,WAAW;AACf;;AAEA;IACI,kBAAkB;IAClB,WAAW;AACf;;AAEA;IACI,kBAAkB;IAClB,WAAW;AACf;;AAEA;IACI,uBAAuB;IACvB,aAAa;IACb,mCAAmC;AACvC;;AAEA;IACI,uBAAuB;IACvB,aAAa;IACb,kCAAkC;AACtC;;AAEA;IACI,uBAAuB;IACvB,aAAa;IACb,kCAAkC;AACtC","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Montserrat&display=swap');\n\n\nh1 {\n    text-align: center;\n    font-family: 'M PLUS 1p', sans-serif;\n}\n\nh2, h3, h4, input, textarea {\n    font-family: 'M PLUS 1p', sans-serif;\n}\n\nform, p, button, a{\n    font-family: 'Montserrat', sans-serif;\n}\n\na {\n    text-decoration: none\n}\n\ninput {\n    margin: 5px;\n}\n\n#wrapper {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 10px;\n    grid-auto-rows: minmax(100px, auto);\n}\n\n#song {\n    grid-column: 1 / 3;\n    grid-row: 1; \n}\n\n#song-search {\n    grid-column: 2 / 4;\n    grid-row: 1; \n}\n\n#round {\n    grid-column: 1 / 3;\n    grid-row: 2; \n}\n\n#round-search{\n    grid-column: 2 / 4;\n    grid-row: 2; \n}\n\n#round-container {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(230, 115,169);\n}\n\n#song-container {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(103,249,217);\n}\n\n#output {\n    border: 5px groove cyan;\n    padding: 10px;\n    background-color: rgb(133,176,231);\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

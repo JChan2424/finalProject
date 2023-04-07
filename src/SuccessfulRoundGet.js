@@ -12,7 +12,6 @@ const SuccessfulRoundGet = props => {
     else {
         fullCombo = "No";
     }
-    // https://www.g2i.co/blog/understanding-the-objects-are-not-valid-as-a-react-child-error-in-react
     return(
         <>
             <div>
