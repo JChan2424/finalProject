@@ -1,7 +1,8 @@
 # Hatsune Miku Project Sekai: Colorful Stage Score Tracker
 API v. 1.0.0 (April 2023)
-### Known Bugs
-- Full Combo status being printed out incorrectly in results panel
+- Known bugs: Output may render incorrect combo status
+
+**Check out the project [here](https://two600-jchan211final.onrender.com/)!***
 
 ## Table of Contents:
 
@@ -34,13 +35,12 @@ The Hatsune Miku Project Sekai: Colorful Stage Score Tracker is designed to prov
 
 ## API Features
 - Saving songs: You can save songs that you like by using the song's name and the name of the group that sings it.   
-![Image here](./image.png)
 - Saving individual rounds: You can save an individual round, and, using its song name, it can be associated with an existing song in the database! You can also save data about its difficulty, level, score, whether or not you got a full combo, any additional comments you want to leave.     
-![Image here](./image.png)
 - Searching for Song: You can search by name, and/ or whether or not you got a full combo on it.   
-![Image here](./image.png)
+
 - Searching for a round: Similar to searching for a song, you can find rounds for an individual song, and/ or whether you got a full combo on it.  
-![Image here](./image.png)
+![Image showing song name, level, difficulty, and group](./markdownImages/diffandlevel.png)
+![Image showing score and combo](./markdownImages/score-combo.png)
 
 ## Using the API Endpoints 
 The following are the endpoints for making HTTP POST and GET requests. As mentioned before, you can get songs and rounds by name or by whether or not you got a full combo. GET requests use the request query, and POST requests use the request body.
@@ -74,9 +74,7 @@ Endpoint:
 - GET requests are made using the request query
     - name: Name of the song. Make sure that spaces are properly encoded in the URL
     - combo: Whether or not to search for songs with a full-combo. This should be either `"true"` or `"false"`. It should be true if you're looking for songs with a full combo and false for songs without a full combo. 
-- Example response: 
-```
-```
+
     
 ### Posting a Round
 Endpoint: `POST /api/v1/rounds/`  
@@ -118,7 +116,6 @@ Endpoint:
 ## Acknowledgements
 - Thank you to Jordan Miller for providing resources and tutorials on Express, AJV, Mongo/Mongoose, and React in order to develop this project.
 - Thank you as well to MDN Web Docs, W3 Schools, Mongoose, React.dev for additional resources regrading HTML forms and input, CSS techniques, database operations, and additional React techniques.
-- Thank you to Google Fonts for providing the fonts. 
    
      
   ________   
