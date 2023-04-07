@@ -29,7 +29,7 @@ const postSongValidator = (req, res, next) => {
             }
         }
     }
-    const validatePostSong = ajv.complie(schema);
+    const validatePostSong = ajv.compile(schema);
     validatePostSong(req.body);
     res.locals.postSongErrors = validatePostSong.errors;
     next();
@@ -50,7 +50,7 @@ const getSongValidator = (req,res,next) => {
             }
         }
     }
-    const validateGetSong = ajv.complie(schema);
+    const validateGetSong = ajv.compile(schema);
     validateGetSong(req.query);
     res.locals.getSongErrors = validateGetSong.errors;
     next();

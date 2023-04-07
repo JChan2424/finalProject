@@ -2,10 +2,6 @@
 const { Song } = require('../models/Song.js');
 
 const getSong = (req,res)=>{
-    console.log("getSong query ", req.query);
-    const parseToBoolean = (stringToParse) => {
-        return (stringToParse.toLowerCase() + '' === 'true');
-    };
     
     // Trim an array so that it only has ten elements.
     // Precondition: The array parameter has been initialized
@@ -22,26 +18,21 @@ const getSong = (req,res)=>{
         return trimmedArray;
     };
     
-    // Find songs whose fullCombo property matches the fullCombo property sent in the request query.
-    // Precondition: The results parameter is not null
-    // Postcondition: An array of rounds matching the requested combo. 
     const findSongsWithCombo = (results) => {
         let songArray = [];
         results.forEach(song=>{
             song.rounds.forEach(round => {
-                if(round.fullCombo == (parseToBoolean(req.query.combo)) && songArray.indexOf(song) == -1) {
+                if((round.fullCombo == req.query.combo) && songArray.indexOf(song) == -1) {
                     songArray.push(song);
                 }
             });
         });
         return songArray;
     };
-    let parsedCombo;
-    if(req.query.combo) {
-        parsedCombo = parseToBoolean(req.query.combo);
-    }
     
-    if(req.query.name && !req.query.combo) { // Request has just the 
+    if(req.query.name && !req.query.combo) { // Request has just the name
+    
+        console.log(req.query.combo)
         console.log("Search by name");
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
@@ -58,6 +49,7 @@ const getSong = (req,res)=>{
         });
     }
     else if(!req.query.name && req.query.combo) { 
+        console.log(req.query.combo)
         let songArray = [];
         let trimmedArray = [];
         Song.find({}).exec()
@@ -66,13 +58,6 @@ const getSong = (req,res)=>{
                 res.status(404).send(results); 
             }
             else {
-                let comboStatus = "";
-                if(parsedCombo) { // If the user is looking for rounds with a full combo
-                    comboStatus = "full-combo";
-                }
-                else { // If the user is looking for rounds without a full combo
-                    comboStatus = "not full-combo";
-                }
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
                     res.send(songArray);
@@ -94,16 +79,9 @@ const getSong = (req,res)=>{
                 res.send(results); 
             }
             else {
-                let comboStatus = "";
-                if(parsedCombo) { // If the user is looking for rounds with a full combo
-                    comboStatus = "full-combo";
-                }
-                else { // If the user is looking for rounds without a full combo
-                    comboStatus = "not full-combo";
-                }
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`);
+                    res.send(songArray);
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);

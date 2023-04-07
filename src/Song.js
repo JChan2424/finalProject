@@ -8,6 +8,7 @@ const Song = props => {
     
     const updateName = event => {
         props.setSongName(event.target.value);
+        console.log(props.songName);
     }
     const updateGroup = event => {
         props.setGroup(event.target.value);

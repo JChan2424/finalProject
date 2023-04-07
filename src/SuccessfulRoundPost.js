@@ -3,7 +3,7 @@ import React from 'react';
 const { useEffect, useState } = React
 
 const SuccessfulRoundPost = props => {
-    
+    console.log("props.fullCombo", props.resultsfullCombo)
     return(
         <>
             <div>
@@ -13,7 +13,7 @@ const SuccessfulRoundPost = props => {
                 <p>Difficulty: {props.results.difficulty}</p>
                 <p>Level: {props.results.level}</p>
                 <p>Score: {props.results.score}</p>
-                <p>Full Combo?: {fullCombo}</p>
+                <p>Full Combo?: {props.results.fullCombo ? "Yes" : "No"}</p>
                 <p>Comments: {props.results.comments}</p>
             </div>
         </>

@@ -8,18 +8,8 @@ const { useEffect, useState } = React
 const RenderResults = props => {
     const updateShow = event => {
         event.preventDefault();
-        console.log(event.target.checked);
     }
     
-    console.log("results passed down: ", props.results)
-    let heading;
-    let summary = document.getElementById("results-container");
-    
-    
-    let error = <div></div>
-    if(props.results._message) {
-        error = <p>{props.results._message}</p>;
-    }
     return(
         <>
             <h2>Results</h2>
