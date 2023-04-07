@@ -110,12 +110,12 @@ Endpoint:
 
 
 ## Reccomendations for Integrating the API
-- If you're pulling from this repository, the API logic is contained in the controllers folder. 
+- If you're pulling from this repository, the API logic is contained in the `controllers` folder. All of the front end logic is contained in `src`.
 - You will require your own database connection. This web app was developed using MongoDB as its database. 
 
 ## Acknowledgements
 - Thank you to Jordan Miller for providing resources and tutorials on Express, AJV, Mongo/Mongoose, and React in order to develop this project.
-- Thank you as well to MDN Web Docs, W3 Schools, Mongoose, React.dev
+- Thank you as well to MDN Web Docs, W3 Schools, Mongoose, React.dev for additional resources regrading HTML forms and input, CSS techniques, database operations, and additional React techniques.
    
      
   ________   
