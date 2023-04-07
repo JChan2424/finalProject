@@ -72,7 +72,7 @@ const getRoundValidator = (req, res, next) => {
     }
     const validateGetRound = ajv.compile(schema);
     validateGetRound(req.query);
-    req.locals.getRoundErrors = validateGetRound.errors;
+    res.locals.getRoundErrors = validateGetRound.errors;
     next();
 }
 

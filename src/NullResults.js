@@ -6,7 +6,7 @@ const NullResults = props => {
         console.log("checked: ",event.target.checked);
         
     }
-    console.log(props.show)
+    // console.log(props.show)
     const parseToBoolean = (stringToParse) => {
         // console.log(stringToParse)
         return (stringToParse.toLowerCase() + '' === 'true') 

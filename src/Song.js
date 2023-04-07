@@ -5,24 +5,20 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const Song = props => {
-    let name;
-    let group;
+    
     const updateName = event => {
-        name = "";
-        name = event.target.value;
-        console.log("name: ",name)
+        props.setSongName(event.target.value);
     }
     const updateGroup = event => {
-        group = "";
-        group = event.target.value;
+        props.setGroup(event.target.value);
     }
     const makePostRequest = (event) => {
         event.preventDefault();
         
         let newSong ={}
         axios.post(`../api/v1/songs/`, {
-            name:name,
-            group:group
+            name:props.songName,
+            group:props.group
         })
         .then(results => {
             console.log("Post song")
@@ -34,7 +30,7 @@ const Song = props => {
             console.log(error);
         })
     }
-    // onSubmit={event=>makePostRequest(event)}
+
     return (
         <>
             <div id="song">

@@ -29,7 +29,6 @@ const getSong = (req,res)=>{
         let songArray = [];
         results.forEach(song=>{
             song.rounds.forEach(round => {
-                // console.log(round.fullCombo == (parseToBoolean(req.query.combo)));
                 if(round.fullCombo == (parseToBoolean(req.query.combo)) && songArray.indexOf(song) == -1) {
                     // console.log(song);
                     songArray.push(song);
@@ -48,7 +47,8 @@ const getSong = (req,res)=>{
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.status(404).send("No songs found"); // 404 vs. 204
+            console.log(results)
+                res.status(404).send(results); // 404 vs. 204
             }
             else {
                 res.status(200).send(results);
@@ -64,7 +64,7 @@ const getSong = (req,res)=>{
         Song.find({}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.status(404).send("No songs found"); // 404 vs. 204
+                res.status(404).send(results); // 404 vs. 204
             }
             else {
                 let comboStatus = "";
@@ -76,7 +76,7 @@ const getSong = (req,res)=>{
                 }
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`);
+                    res.send(songArray);
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);
@@ -92,7 +92,7 @@ const getSong = (req,res)=>{
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.status(404).send("No songs found"); // 404 vs. 204
+                res.send(results); // 404 vs. 204
             }
             else {
                 let comboStatus = "";
@@ -115,7 +115,8 @@ const getSong = (req,res)=>{
     }
     
     else if (!req.query.songName && !req.query.fullCombo) {
-        res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
+        let emptyResult = [];
+        res.send(emptyResult); 
     }
     
     else {

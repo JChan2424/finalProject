@@ -4,21 +4,21 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const RoundSearch = props => {
-    let songName;
-    let fullCombo;
+    // let songName;
+    // let fullCombo;
     const updateSongName = event => {
-        songName = "";
-        songName = event.target.value;
-        console.log(songName);
+        // songName = "";
+        props.setSongName(event.target.value);
+        // console.log(songName);
     }
     const updateFullCombo = event => {
-        fullCombo = "";
-        fullCombo = event.target.value;
+        // fullCombo = "";
+        props.setFullCombo(event.target.value);
     }
     const makeRoundGetRequest = (event) => {
         event.preventDefault(); // Not Preventing default?
         console.log("Request made")
-        axios.get(`../api/v1/rounds/?songName=${songName}&fullCombo=${fullCombo}`)
+        axios.get(`../api/v1/rounds/?songName=${props.songName}&fullCombo=${props.fullCombo}`)
         .then(results => {
             console.log("Results ", results)
             props.setResults(results);

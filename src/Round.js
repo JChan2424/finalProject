@@ -4,54 +4,40 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const Round = props => {
-    let songName;
-    let difficulty;
-    let level;
-    let score;
-    let fullCombo;
-    let comments;
     
     const updateSongName = event => {
-        songName = "";
-        songName = event.target.value;
-        console.log(songName)
+        props.setSongName(event.target.value);
     };
     
     const updateDifficulty = event => {
-        difficulty = "";
-        difficulty = event.target.value;
-        console.log(difficulty);
-    };
+        props.setDifficulty(event.target.value);
+     };
     
     const updateLevel = event => {
-        level = "";
-        level = event.target.value;
+         props.setLevel(event.target.value);
     };
     
     const updateScore = event => {
-        score = "";
-        score = event.target.value;
+         props.setScore(event.target.value);
     };
     
     const updateCombo = event => {
-        fullCombo = "";
-        fullCombo = event.target.value;
+        props.setFullCombo(event.target.value);
     };
     
     const updateComments = event => {
-        comments = "";
-        comments = event.target.value;
+          props.setComments(event.target.value);
     };
     
     const makePostRequest = (event) => {
         event.preventDefault();
         axios.post(`../api/v1/rounds/`, {
-            songName:songName,
-            difficulty:difficulty,
-            level:level,
-            score:score,
-            fullCombo:fullCombo,
-            comments:comments
+            songName:props.songName,
+            difficulty:props.difficulty,
+            level:props.level,
+            score:props.score,
+            fullCombo:props.fullCombo,
+            comments:props.comments
         })
         .then(results => {
             props.setResults(results);
@@ -61,9 +47,6 @@ const Round = props => {
             console.log(error);
         })
     }
-    // onSubmit={makePostRequest(event)}
-    
-    // Infinite loop of post requests being made
     return (
         <>
             <div id="round">

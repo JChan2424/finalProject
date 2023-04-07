@@ -8166,23 +8166,75 @@ var App = function App(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     requestType = _useState4[0],
     setRequestType = _useState4[1];
+  var _useState5 = useState(),
+    _useState6 = _slicedToArray(_useState5, 2),
+    songName = _useState6[0],
+    setSongName = _useState6[1]; // Reuse
+  var _useState7 = useState(),
+    _useState8 = _slicedToArray(_useState7, 2),
+    difficulty = _useState8[0],
+    setDifficulty = _useState8[1];
+  var _useState9 = useState(),
+    _useState10 = _slicedToArray(_useState9, 2),
+    score = _useState10[0],
+    setScore = _useState10[1];
+  var _useState11 = useState(),
+    _useState12 = _slicedToArray(_useState11, 2),
+    level = _useState12[0],
+    setLevel = _useState12[1];
+  var _useState13 = useState(),
+    _useState14 = _slicedToArray(_useState13, 2),
+    fullCombo = _useState14[0],
+    setFullCombo = _useState14[1]; // reuse
+  var _useState15 = useState(),
+    _useState16 = _slicedToArray(_useState15, 2),
+    comments = _useState16[0],
+    setComments = _useState16[1];
+  var _useState17 = useState(),
+    _useState18 = _slicedToArray(_useState17, 2),
+    group = _useState18[0],
+    setGroup = _useState18[1];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Welcome to the Unofficial Project Sekai Score Tracker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "round-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Round_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
     setResults: setResults,
+    songName: songName,
+    setSongName: setSongName,
+    difficulty: difficulty,
+    setDifficulty: setDifficulty,
+    level: level,
+    setLevel: setLevel,
+    fullCombo: fullCombo,
+    setFullCombo: setFullCombo,
+    score: score,
+    setScore: setScore,
+    comments: comments,
+    setComments: setComments,
     setRequestType: setRequestType
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_RoundSearch_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
     setResults: setResults,
+    songName: songName,
+    setSongName: setSongName,
+    fullCombo: fullCombo,
+    setFullCombo: setFullCombo,
     setRequestType: setRequestType
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "song-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Song_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
     setResults: setResults,
+    songName: songName,
+    setSongName: setSongName,
+    group: group,
+    setGroup: setGroup,
     setRequestType: setRequestType
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SongSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
     setResults: setResults,
+    songName: songName,
+    setSongName: setSongName,
+    fullCombo: fullCombo,
+    setFullCombo: setFullCombo,
     setRequestType: setRequestType
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "output"
@@ -8214,7 +8266,7 @@ var NullResults = function NullResults(props) {
     event.preventDefault();
     console.log("checked: ", event.target.checked);
   };
-  console.log(props.show);
+  // console.log(props.show)
   var parseToBoolean = function parseToBoolean(stringToParse) {
     // console.log(stringToParse)
     return stringToParse.toLowerCase() + '' === 'true';
@@ -8327,7 +8379,7 @@ var useEffect = (react__WEBPACK_IMPORTED_MODULE_0___default().useEffect),
 
 
 var Results = function Results(props) {
-  var _useState = useState(true),
+  var _useState = useState(),
     _useState2 = _slicedToArray(_useState, 2),
     show = _useState2[0],
     setShow = _useState2[1];
@@ -8341,12 +8393,16 @@ var Results = function Results(props) {
     });
   } else {
     console.log("results to render: ", props.results.data);
-    componentToRender = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_RenderResults_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      results: props.results.data,
-      setShow: setShow,
-      show: show,
-      requestType: props.requestType
-    });
+    if (props.results.data.length <= 0) {
+      componentToRender = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Results"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "No documents matching your parameters found. If you're trying to add a round, make sure that the song associated with the round is in the database."));
+    } else {
+      componentToRender = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_RenderResults_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        results: props.results.data,
+        setShow: setShow,
+        show: show,
+        requestType: props.requestType
+      });
+    }
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, componentToRender);
 };
@@ -8373,47 +8429,33 @@ __webpack_require__.r(__webpack_exports__);
 var useEffect = (react__WEBPACK_IMPORTED_MODULE_0___default().useEffect),
   useState = (react__WEBPACK_IMPORTED_MODULE_0___default().useState);
 var Round = function Round(props) {
-  var songName;
-  var difficulty;
-  var level;
-  var score;
-  var fullCombo;
-  var comments;
   var updateSongName = function updateSongName(event) {
-    songName = "";
-    songName = event.target.value;
-    console.log(songName);
+    props.setSongName(event.target.value);
   };
   var updateDifficulty = function updateDifficulty(event) {
-    difficulty = "";
-    difficulty = event.target.value;
-    console.log(difficulty);
+    props.setDifficulty(event.target.value);
   };
   var updateLevel = function updateLevel(event) {
-    level = "";
-    level = event.target.value;
+    props.setLevel(event.target.value);
   };
   var updateScore = function updateScore(event) {
-    score = "";
-    score = event.target.value;
+    props.setScore(event.target.value);
   };
   var updateCombo = function updateCombo(event) {
-    fullCombo = "";
-    fullCombo = event.target.value;
+    props.setFullCombo(event.target.value);
   };
   var updateComments = function updateComments(event) {
-    comments = "";
-    comments = event.target.value;
+    props.setComments(event.target.value);
   };
   var makePostRequest = function makePostRequest(event) {
     event.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post("../api/v1/rounds/", {
-      songName: songName,
-      difficulty: difficulty,
-      level: level,
-      score: score,
-      fullCombo: fullCombo,
-      comments: comments
+      songName: props.songName,
+      difficulty: props.difficulty,
+      level: props.level,
+      score: props.score,
+      fullCombo: props.fullCombo,
+      comments: props.comments
     }).then(function (results) {
       props.setResults(results);
       props.setRequestType("POST Round");
@@ -8421,9 +8463,6 @@ var Round = function Round(props) {
       console.log(error);
     });
   };
-  // onSubmit={makePostRequest(event)}
-
-  // Infinite loop of post requests being made
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "round"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Save a round"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
@@ -8574,21 +8613,22 @@ __webpack_require__.r(__webpack_exports__);
 var useEffect = (react__WEBPACK_IMPORTED_MODULE_0___default().useEffect),
   useState = (react__WEBPACK_IMPORTED_MODULE_0___default().useState);
 var RoundSearch = function RoundSearch(props) {
-  var songName;
-  var fullCombo;
+  // let songName;
+  // let fullCombo;
   var updateSongName = function updateSongName(event) {
-    songName = "";
-    songName = event.target.value;
-    console.log(songName);
+    // songName = "";
+    props.setSongName(event.target.value);
+    // console.log(songName);
   };
+
   var updateFullCombo = function updateFullCombo(event) {
-    fullCombo = "";
-    fullCombo = event.target.value;
+    // fullCombo = "";
+    props.setFullCombo(event.target.value);
   };
   var makeRoundGetRequest = function makeRoundGetRequest(event) {
     event.preventDefault(); // Not Preventing default?
     console.log("Request made");
-    axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("../api/v1/rounds/?songName=".concat(songName, "&fullCombo=").concat(fullCombo)).then(function (results) {
+    axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("../api/v1/rounds/?songName=".concat(props.songName, "&fullCombo=").concat(props.fullCombo)).then(function (results) {
       console.log("Results ", results);
       props.setResults(results);
       props.setRequestType("GET Round");
@@ -8665,23 +8705,18 @@ __webpack_require__.r(__webpack_exports__);
 var useEffect = (react__WEBPACK_IMPORTED_MODULE_0___default().useEffect),
   useState = (react__WEBPACK_IMPORTED_MODULE_0___default().useState);
 var Song = function Song(props) {
-  var name;
-  var group;
   var updateName = function updateName(event) {
-    name = "";
-    name = event.target.value;
-    console.log("name: ", name);
+    props.setSongName(event.target.value);
   };
   var updateGroup = function updateGroup(event) {
-    group = "";
-    group = event.target.value;
+    props.setGroup(event.target.value);
   };
   var makePostRequest = function makePostRequest(event) {
     event.preventDefault();
     var newSong = {};
     axios__WEBPACK_IMPORTED_MODULE_1__["default"].post("../api/v1/songs/", {
-      name: name,
-      group: group
+      name: props.songName,
+      group: props.group
     }).then(function (results) {
       console.log("Post song");
       props.setResults(results);
@@ -8691,7 +8726,6 @@ var Song = function Song(props) {
       console.log(error);
     });
   };
-  // onSubmit={event=>makePostRequest(event)}
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "song"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Save a song"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {

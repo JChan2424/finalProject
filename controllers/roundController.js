@@ -76,7 +76,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         Song.find({}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.status(404).send("No songs found"); // 404 vs. 204
+                res.status(404).send("No songs found"); 
             }
             else {
                 let comboStatus = "";
@@ -88,7 +88,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
                 }
                 roundArray = findRoundsWithCombo(results);
                 if(roundArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`)
+                    res.send(`No songs found`)
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
@@ -105,7 +105,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             if(results.length <=0) {
-                res.send("No rounds associated with this song or combo found.");
+                res.send("No songs found");
             }
             else {
                 let comboStatus = "";
@@ -130,11 +130,11 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         });
     }
     else if ((!req.query.songName && !req.query.fullCombo) || (req.query.songName == undefined && req.query.fullCombo == undefined)) {
-        res.send("Could not find rounds. Please enter a song to or combo type to search for."); 
+        res.send("No songs found"); 
     }
     
     else {
-        res.status(500).send("An errror occurred");
+        res.status(500).send("An error occurred");
     }
 };
 
@@ -142,7 +142,7 @@ const postRound = (req,res)=>{
     Song.findOne({"name":req.body.songName}).exec()
     .then(result =>{
         if(!result) {
-            res.send("No song found. Please make sure that the song has been added to the database. You can do this by searching for the song.");
+            res.send(result);
         }
         else {
             let foundSong = result;
