@@ -4,7 +4,7 @@ import SuccessfulSongPost from './SuccessfulSongPost.js';
 import SuccessfulRoundGet from './SuccessfulRoundGet.js'
 import SuccessfulSongGet from './SuccessfulSongGet.js';
 const { useEffect, useState } = React
-// Radio buttons onChange pass up a value to hide the information or search results
+
 const RenderResults = props => {
     const updateShow = event => {
         event.preventDefault();

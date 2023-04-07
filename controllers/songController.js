@@ -30,7 +30,6 @@ const getSong = (req,res)=>{
         results.forEach(song=>{
             song.rounds.forEach(round => {
                 if(round.fullCombo == (parseToBoolean(req.query.combo)) && songArray.indexOf(song) == -1) {
-                    // console.log(song);
                     songArray.push(song);
                 }
             });
@@ -48,14 +47,14 @@ const getSong = (req,res)=>{
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
             console.log(results)
-                res.status(404).send(results); // 404 vs. 204
+                res.status(404).send(results);
             }
             else {
                 res.status(200).send(results);
             }
         })
         .catch(error=>{
-            res.status(500).send(error); // depends on the response received
+            res.status(500).send(error); 
         });
     }
     else if(!req.query.name && req.query.combo) { 
@@ -64,7 +63,7 @@ const getSong = (req,res)=>{
         Song.find({}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.status(404).send(results); // 404 vs. 204
+                res.status(404).send(results); 
             }
             else {
                 let comboStatus = "";
@@ -92,7 +91,7 @@ const getSong = (req,res)=>{
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-                res.send(results); // 404 vs. 204
+                res.send(results); 
             }
             else {
                 let comboStatus = "";

@@ -3,9 +3,7 @@ const { Song } = require('../models/Song.js');
 const getRound = (req,res)=>{ // Get the 10 most recent rounds
     
     // Parse the request query to a boolean for comparing to the value in the database
-    // Do this in the validator?
     const parseToBoolean = (stringToParse) => {
-        // console.log(stringToParse)
         return (stringToParse.toLowerCase() + '' === 'true') 
     }
     

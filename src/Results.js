@@ -15,7 +15,7 @@ const Results = props => {
     const [show, setShow] = useState();
     let componentToRender;
     
-    // let show = parseToBoolean(show);
+    
     if(props.results.length <= 0 || props.results.data == undefined) {
         componentToRender = <NullResults setShow={setShow} show={show}/>;
     }

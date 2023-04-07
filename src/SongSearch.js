@@ -4,21 +4,17 @@ import axios from 'axios';
 const { useEffect, useState } = React;
 
 const SongSearch = props => {
-    // action="../api/v1/songs" method="GET"
-    let name;
-    let combo;
+    
     const updateName = event => {
-        name = "";
-        name = event.target.value;
-        console.log("SongSearch name: ", name)
+        props.setSongName(event.target.value);
+       
     }
     const updateCombo = event => {
-        combo ="";
-        combo = event.target.value;
+        props.setFullCombo(event.target.value);
     }
     const makeGetRequest = (event) => {
         event.preventDefault();
-        axios.get(`../api/v1/songs/?name=${name}&combo=${combo}`)
+        axios.get(`../api/v1/songs/?name=${props.songName}&combo=${props.fullCombo}`)
         .then(results => {
             props.setResults(results);
             props.setRequestType("GET Song");
@@ -42,7 +38,6 @@ const SongSearch = props => {
                    <input type="radio" id="not-full" name="combo" value="false" onChange={event => updateCombo(event)} />
                     <br />
                     <input type="submit" value="Search" action="../api/v1/songs" method="GET" /> <input type="reset" />
-                   {/*<button onClick={makeGetRequest}>Search</button>  */}
                 </form>
             </div>
         </>

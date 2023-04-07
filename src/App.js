@@ -11,11 +11,11 @@ const App = props => {
     const [requestType, setRequestType] = useState();
     
     
-    const [songName, setSongName] = useState(); // Reuse
+    const [songName, setSongName] = useState(); 
     const [difficulty, setDifficulty] = useState();
     const [score, setScore] = useState();
     const [level, setLevel] = useState(); 
-    const [fullCombo, setFullCombo] = useState(); // reuse
+    const [fullCombo, setFullCombo] = useState(); 
     const [comments, setComments] = useState();
     const [group, setGroup] = useState();
     

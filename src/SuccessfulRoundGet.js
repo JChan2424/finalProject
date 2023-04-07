@@ -3,8 +3,6 @@ import React from 'react';
 const { useEffect, useState } = React
 
 const SuccessfulRoundGet = props => {
-    console.log("name", props.results);
-    let fullCombo;
     
     return(
         <>

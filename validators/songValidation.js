@@ -14,6 +14,7 @@ const postSongValidator = (req, res, next) => {
                 type:'string',
                 errorMessage:'Could not enter song name. Please try again.'
             },
+            // Group that performed the song
             group: {
                 enum: ['VS','L/N','MMJ','VBS','WXS','N25','other'],
                 errorMessage:'Unknown group. Please try again.'

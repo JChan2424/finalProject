@@ -3,15 +3,7 @@ import React from 'react';
 const { useEffect, useState } = React
 
 const SuccessfulRoundPost = props => {
-    console.log("name", props.results);
-    let fullCombo;
     
-    if(props.results.fullCombo == true) {
-        fullCombo = "Yes";
-    } 
-    else {
-        fullCombo = "No";
-    }
     return(
         <>
             <div>
