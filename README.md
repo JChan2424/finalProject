@@ -1,8 +1,13 @@
 # Hatsune Miku Project Sekai: Colorful Stage Score Tracker
-API v. 1.0.0 (April 2023)
-- Known bugs: Output may render incorrect combo status
+API v. 1.0.1 (April 2023)
+- Known bugs: Output may render incorrect combo status (Fixed)
 
-**Check out the project [here](https://two600-jchan211final.onrender.com/)!***
+## Patch Notes: 
+- v. 1.0.1
+    - Hotfixed issues with the forms
+    - Combo Status bug should be squashed
+
+***Check out the project [here](https://two600-jchan211final.onrender.com/)!***
 
 ## Table of Contents:
 
