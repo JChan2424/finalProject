@@ -1,5 +1,7 @@
 # Hatsune Miku Project Sekai: Colorful Stage Score Tracker
 API v. 1.0.0 (April 2023)
+### Known Bugs
+- Full Combo status being printed out incorrectly in results panel
 
 ## Table of Contents:
 
@@ -116,6 +118,7 @@ Endpoint:
 ## Acknowledgements
 - Thank you to Jordan Miller for providing resources and tutorials on Express, AJV, Mongo/Mongoose, and React in order to develop this project.
 - Thank you as well to MDN Web Docs, W3 Schools, Mongoose, React.dev for additional resources regrading HTML forms and input, CSS techniques, database operations, and additional React techniques.
+- Thank you to Google Fonts for providing the fonts. 
    
      
   ________   
