@@ -27,8 +27,8 @@ Hatsune Miku Project Sekai: Colorful Stage is a rhythmn game developed by SEGA, 
 - [Official Twitter (Japanese)](https://twitter.com/pj_sekai)
 - [Official YouTube (Japanese)](https://www.youtube.com/channel/UCdMGYXL38w6htx6Yf9YJa-w?view_as=subscriber)
 - [Official English Twitter](https://twitter.com/ColorfulStageEN)
--[Official English Site](https://www.colorfulstage.com/)
--[Official English YouTube](https://www.youtube.com/@HATSUNEMIKUCOLORFULSTAGE/videos)
+- [Official English Site](https://www.colorfulstage.com/)
+- [Official English YouTube](https://www.youtube.com/@HATSUNEMIKUCOLORFULSTAGE/videos)
 
 ## What is the Hatsune Miku Project Sekai: Colorful Stage Score Tracker?
 The Hatsune Miku Project Sekai: Colorful Stage Score Tracker is designed to provide a way to save songs that you like and the scores from each round you play. You can then access previous scores and see how you improved (or got worse). 
