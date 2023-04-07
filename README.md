@@ -3,16 +3,16 @@ API v. 1.0.0 (April 2023)
 
 ## Table of Contents:
 
-- [What is Hatsune Miku Project Sekai: Colorful Stage?](#what-is-hatsune-miku-project-sekai:-colorfulstage?)
-
-- [What is the Hatsune Miku Project Sekai: Colorful Stage Score Tracker](#what-is-the-hatsune-miku-project-sekai:-colorful-stage-score-tracker?)
+- [What is Hatsune Miku Project Sekai: Colorful Stage?](#what-is-hatsune-miku-project-sekai:-colorful-stage?)
+- [What is the Hatsune Miku Project Sekai: Colorful Stage Score Tracker?](what-is-the-hatsune-miku-project-sekai:-colorful-stage-score-tracker?)
 - [API Features](#api-features)
 - [Using the API Endpoints](#using-the-api-endpoints)
     - [Posting a Song](posting-a-song)
     - [Searching for a Song](Searching-for-a-song)
     - [Posting a Round](posting-a-round)
     - [Searching for a Round](searching-for-a-round)
--[Reccomendations for Integrating the API](reccomendations-for-integrating-the-api)
+- [Reccomendations for Integrating the API](#reccomendations-for-integrating-the-api)
+- [Acknowledgements](#acknowledgements)
 
 
 ## What is Hatsune Miku Project Sekai: Colorful Stage?
@@ -108,3 +108,15 @@ Endpoint:
     - songName: Name of the song. Make sure that spaces are properly encoded in the URL
     - fullCombo: Whether or not to search for songs with a full-combo. This should be either `"true"` or `"false"`. It should be true if you're looking for songs with a full combo and false for songs without a full combo. 
 
+
+## Reccomendations for Integrating the API
+- If you're pulling from this repository, the API logic is contained in the controllers folder. 
+- You will require your own database connection. This web app was developed using MongoDB as its database. 
+
+## Acknowledgements
+- Thank you to Jordan Miller for providing resources and tutorials on Express, AJV, Mongo/Mongoose, and React in order to develop this project.
+- Thank you as well to MDN Web Docs, W3 Schools, Mongoose, React.dev
+   
+     
+  ________   
+  This project is entirely fanmade, and has no association with SEGA, Craft Egg, Colorful Palette or Crypton Future Media. All screenshots are taken from in-game, and belong to their respective copyright holders.
