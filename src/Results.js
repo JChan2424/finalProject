@@ -1,11 +1,4 @@
 // Component for rendering search results
-// Use the controlled component to update this component when results are changed
-
-// If props.results  == null, show an info panel about the game
-// If results has been updated, show the info
-
-// Have separate files that get imported for each set of HTML tags?
-
 import React from 'react';
 const { useEffect, useState } = React;
 

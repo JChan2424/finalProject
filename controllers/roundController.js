@@ -19,7 +19,6 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
             i--;
             numPushed++;
         }
-        // console.log(trimmedArray)
         return trimmedArray;
     }
     
@@ -45,7 +44,6 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         let trimmedArray = []; // Array trimmed to no more than 10 elements
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
-            console.log("Get based on name")
             if(!results) {
                 res.send("No rounds associated with this song found.")
             }
@@ -94,8 +92,6 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         
     }
     else if(req.query.songName && req.query.fullCombo) {
-        console.log("Get by name and combo");
-        console.log(req.query.fullCombo)
         let roundArray = [];
         let trimmedArray = [];
         Song.find({"name":req.query.songName}).exec()

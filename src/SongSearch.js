@@ -10,18 +10,15 @@ const SongSearch = props => {
     }
     const updateCombo = event => {
         props.setFullCombo(event.target.value);
-        console.log(props.fullCombo)
     }
     const makeGetRequest = (event) => {
         event.preventDefault();
-        console.log("Get request", props.fullCombo)
         axios.get(`../api/v1/songs/?name=${props.songName}&combo=${props.fullCombo}`)
         .then(results => {
             props.setResults(results);
             props.setRequestType("GET Song");
         })
         .catch(error => {
-            console.log()
             props.setResults(error);
         })
     }

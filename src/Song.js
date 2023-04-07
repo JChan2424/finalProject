@@ -8,7 +8,6 @@ const Song = props => {
     
     const updateName = event => {
         props.setSongName(event.target.value);
-        console.log(props.songName);
     }
     const updateGroup = event => {
         props.setGroup(event.target.value);
@@ -16,19 +15,17 @@ const Song = props => {
     const makePostRequest = (event) => {
         event.preventDefault();
         
-        let newSong ={}
         axios.post(`../api/v1/songs/`, {
             name:props.songName,
             group:props.group
         })
         .then(results => {
-            console.log("Post song")
             props.setResults(results);
             props.setRequestType("POST Song");
-            console.log(results)
+            
         })
         .catch(error => {
-            console.log(error);
+            props.setResults(error);
         })
     }
 

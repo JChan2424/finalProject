@@ -9,8 +9,6 @@ import Results from './Results.js'
 const App = props => {
     const [results, setResults] = useState([]);
     const [requestType, setRequestType] = useState();
-    
-    
     const [songName, setSongName] = useState(); 
     const [difficulty, setDifficulty] = useState();
     const [score, setScore] = useState();

@@ -31,13 +31,9 @@ const getSong = (req,res)=>{
     };
     
     if(req.query.name && !req.query.combo) { // Request has just the name
-    
-        console.log(req.query.combo)
-        console.log("Search by name");
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
             if(results.length <= 0) { // No songs matching the given name
-            console.log(results)
                 res.status(404).send(results);
             }
             else {
@@ -49,7 +45,6 @@ const getSong = (req,res)=>{
         });
     }
     else if(!req.query.name && req.query.combo) { 
-        console.log(req.query.combo)
         let songArray = [];
         let trimmedArray = [];
         Song.find({}).exec()
@@ -105,7 +100,6 @@ const postSong = (req,res)=>{
     Song.findOne({"name":req.body.name}, {"group":req.body.group}).exec()
     .then(results=>{
         if(results == null) {
-            console.log("No duplicates");
             let newSong = Song({
                 name:req.body.name,
                 group:req.body.group,
