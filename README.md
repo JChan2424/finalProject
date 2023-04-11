@@ -1,8 +1,10 @@
 # Hatsune Miku Project Sekai: Colorful Stage Score Tracker
-API v. 1.0.1 (April 2023)
+API v. 1.1.1 (April 2023)
 - Known bugs: Output may render incorrect combo status (Fixed)
 
 ## Patch Notes: 
+- v. 1.1.1
+    - Added additional validation using AJV Schema. Sorry pranksters and amateur web devs!
 - v. 1.0.1
     - Hotfixed issues with the forms
     - Combo Status bug should be squashed
@@ -72,26 +74,44 @@ Note that the group property uses the shortened version of the in-game group nam
 | Other | other |  
 
  For more information about groups see [here](https://projectsekai.fandom.com/wiki/Category:Characters).
- 
+If the save was successful the following is sent as confirmation:
+```
+{
+  name: 'Charles',
+  group: 'N25',
+  rounds: [],
+  _id: new ObjectId("6434f630ea0235e49aeebf68"),
+  __v: 0
+}
+```
 ### Searching for a Song
 Endpoint:  
 `GET /api/v1/songs/?name={nameOfSong}&combo={false}`
 - GET requests are made using the request query
     - name: Name of the song. Make sure that spaces are properly encoded in the URL
     - combo: Whether or not to search for songs with a full-combo. This should be either `"true"` or `"false"`. It should be true if you're looking for songs with a full combo and false for songs without a full combo. 
-
+The result will be the song that matches the parameters, as seen below:
+```
+{
+    group:"VS",
+    name:"Servant of Evil",
+    rounds:[],
+    __v:0,
+    _id:"642fe275b8ec4caa7d251126"
+}
+```
     
 ### Posting a Round
 Endpoint: `POST /api/v1/rounds/`  
 - Similar to making POST requests for songs, POST requests for rounds should use the request body and have the following format: 
 ```
 {
-    songName:"Name of Song",
+    songName:"Cutlery",
     difficulty:"hard",
-    level:14,
-    score:100000,
+    level:19,
+    score:12345435,
     fullCombo:"false",
-    comments:"No comment"
+    comments:"Expected output."
 }
 ```
 Unlike the POST request for a song, some of the attributes other than String. Refer to this table for accepted types.
@@ -104,15 +124,40 @@ Unlike the POST request for a song, some of the attributes other than String. Re
 | fullCombo | String |
 | comments | String |  
 
-    There is also an additional `date` property added by the API when the document is created. 
+There is also an additional `date` property added by the API when the document is created. 
+The original object that was sent should be sent back as confirmation of a successful save. It should like this:
+```
+ {
+  songName: 'Cutlery',
+  difficulty: 'hard',
+  level: 19,
+  score: 12345435,
+  fullCombo: false,
+  comments: 'Expected output',
+  dateEntered: 2023-04-11T01:16:19.546Z,
+  _id: new ObjectId("6434b4e3ee960ea10cb30450")
+}
+```
 
 ### Searching for a Round
 Endpoint:
-`GET /api/v1/rounds/?songName="songName"&fullCombo="false"
+`GET /api/v1/rounds/?songName="Senbonzakura"&fullCombo="true"
 - Like the GET Request for a song, the GET request for rounds also uses the request query. It has the following properties:
     - songName: Name of the song. Make sure that spaces are properly encoded in the URL
     - fullCombo: Whether or not to search for songs with a full-combo. This should be either `"true"` or `"false"`. It should be true if you're looking for songs with a full combo and false for songs without a full combo. 
-
+The expected result should be an array of Rounds. An element of this array may look like this: 
+```
+{
+    songName: 'Senbonzakura',
+    difficulty: 'hard',
+    level: 20,
+    score: 1231234134,
+    fullCombo: true,
+    comments: 'fasdfas',
+    dateEntered: 2023-04-07T09:56:03.802Z,
+    _id: new ObjectId("642fe8b3ece7da2e4302be49")
+}
+```
 
 ## Reccomendations for Integrating the API
 - If you're pulling from this repository, the API logic is contained in the `controllers` folder. All of the front end logic is contained in `src`.
