@@ -11,6 +11,10 @@ const SongSearch = props => {
     const updateCombo = event => {
         props.setFullCombo(event.target.value);
     }
+    const reset = event => {
+        props.setSongName(undefined);
+        props.setFullCombo(undefined);
+    };
     const makeGetRequest = (event) => {
         event.preventDefault();
         axios.get(`../api/v1/songs/?name=${props.songName}&combo=${props.fullCombo}`)
@@ -36,7 +40,7 @@ const SongSearch = props => {
                    <label htmlFor="not-full">No: </label>
                    <input type="radio" id="not-full" name="combo" value="false" onChange={event => updateCombo(event)} />
                     <br />
-                    <input type="submit" value="Search" action="../api/v1/songs" method="GET" /> <input type="reset" />
+                    <input type="submit" value="Search" action="../api/v1/songs" method="GET" /> <input type="reset"  onClick={event=>reset(event)}/>
                 </form>
             </div>
         </>

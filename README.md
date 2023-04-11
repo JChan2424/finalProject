@@ -72,7 +72,14 @@ Note that the group property uses the shortened version of the in-game group nam
 | Other | other |  
 
  For more information about groups see [here](https://projectsekai.fandom.com/wiki/Category:Characters).
+ The result will be sent back and should look like this:
+ ```
  
+ ```
+ If there are any errors, they will be stored in an array like this:
+ ```
+ 
+ ```
 ### Searching for a Song
 Endpoint:  
 `GET /api/v1/songs/?name={nameOfSong}&combo={false}`
@@ -105,18 +112,44 @@ Unlike the POST request for a song, some of the attributes other than String. Re
 | comments | String |  
 
     There is also an additional `date` property added by the API when the document is created. 
-
+The result should be sent back and will look something like this:
+```
+```
+Any errors are sent back in an array like so:
+```
+[
+  {
+    instancePath: '',
+    schemaPath: '#/errorMessage',
+    keyword: 'errorMessage',
+    params: { errors: [Array] },
+    message: 'Please ensure that you entered a level.'
+  }
+]
+```
 ### Searching for a Round
 Endpoint:
 `GET /api/v1/rounds/?songName="songName"&fullCombo="false"
 - Like the GET Request for a song, the GET request for rounds also uses the request query. It has the following properties:
     - songName: Name of the song. Make sure that spaces are properly encoded in the URL
     - fullCombo: Whether or not to search for songs with a full-combo. This should be either `"true"` or `"false"`. It should be true if you're looking for songs with a full combo and false for songs without a full combo. 
+The result of the search will look something like this:
+```
+{
+    comments:"This is the expected output.",
+    difficulty:"hard",
+    fullCombo:"false",
+    level:"19",
+    score:"123423456",
+    songName:"Cutlery"
+}
+```
 
 
 ## Reccomendations for Integrating the API
 - If you're pulling from this repository, the API logic is contained in the `controllers` folder. All of the front end logic is contained in `src`.
 - You will require your own database connection. This web app was developed using MongoDB as its database. 
+- Any error messages are stored in the `message` field of each element of the error array. 
 
 ## Acknowledgements
 - Thank you to Jordan Miller for providing resources and tutorials on Express, AJV, Mongo/Mongoose, and React in order to develop this project.

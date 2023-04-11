@@ -1,12 +1,23 @@
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true, coerceTypes: true, useDefaults:'empty'});
+require("ajv-keywords")(ajv);
+require("ajv-formats")(ajv);
+require("ajv-errors")(ajv);
+
 const { Round } = require('../models/Round.js')
 const { Song } = require('../models/Song.js');
-const getRound = (req,res)=>{ // Get the 10 most recent rounds
-    
-    // Parse the request query to a boolean for comparing to the value in the database
-    const parseToBoolean = (stringToParse) => {
-        return (stringToParse.toLowerCase() + '' === 'true') 
+
+const { getRoundValidator, postRoundValidator } = require('../validators/roundValidation.js');
+
+const getRound = (req,res)=>{ 
+    console.log(req.songName)
+    //Compare request data to a schema and return any errors
+    const validateGet = ajv.compile(getRoundValidator);
+    let getErrors = validateGet(req.query); 
+    if(getErrors != null && validateGet.errors != null) {
+        console.log(validateGet.errors)
+        return res.send(validateGet.errors);
     }
-    
     // Trim an array so that it only has ten elements.
     // Precondition: The array parameter has been initialized
     // Postcondition: An array consisting of only ten elements
@@ -37,15 +48,14 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         })
         return roundArray;
     }
-    let parsedCombo;
-    
+   
     if(req.query.songName && !req.query.fullCombo) { // Request has just the name
         let arrayOfRounds = []; //Store the rounds here
         let trimmedArray = []; // Array trimmed to no more than 10 elements
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             if(!results) {
-                res.send("No rounds associated with this song found.")
+                res.status(404).send("No rounds associated with this song found.")
             }
             else {
                 results.forEach(song=>{
@@ -54,11 +64,11 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
                     })
                 })
                 trimmedArray = trimToTenElements(arrayOfRounds);
-                res.send(trimmedArray);
+                res.status(200).send(trimmedArray);
             }
         })
         .catch(error=>{
-            res.send(error)
+            res.status(500).send(error)
         })
     }
     else if(!req.query.songName && req.query.fullCombo) {
@@ -72,20 +82,13 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
                 res.status(404).send("No songs found"); 
             }
             else {
-                let comboStatus = "";
-                if(parsedCombo) { // If the user is looking for rounds with a full combo
-                    comboStatus = "full-combo";
-                }
-                else { // If the user is looking for rounds without a full combo
-                    comboStatus = "not full-combo";
-                }
                 roundArray = findRoundsWithCombo(results);
                 if(roundArray.length <= 0) {
-                    res.send(`No songs found`)
+                    res.status(404).send(`No songs found`)
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
-                    res.send(trimmedArray);
+                    res.status(200).send(trimmedArray);
                 }
             }
         });
@@ -97,22 +100,16 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         Song.find({"name":req.query.songName}).exec()
         .then(results=>{
             if(results.length <=0) {
-                res.send("No songs found");
+                res.status(404).send("No songs found");
             }
             else {
-                let comboStatus = "";
-                if(req.query.fullCombo) { // If the user is looking for rounds with a full combo
-                    comboStatus = "full-combo";
-                }
-                else { // If the user is looking for rounds without a full combo
-                    comboStatus = "not full-combo";
-                }
                 roundArray = findRoundsWithCombo(results);
                 if(roundArray.length <= 0) {
-                    res.send(`No songs ${comboStatus}ed found.`);
+                    res.status(404).send("No songs found");
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
+                    console.log(trimmedArray)
                     res.send(trimmedArray);
                 }            
             }
@@ -122,7 +119,7 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
         });
     }
     else if ((!req.query.songName && !req.query.fullCombo) || (req.query.songName == undefined && req.query.fullCombo == undefined)) {
-        res.send("No songs found"); 
+        res.status(404).send("No songs found"); 
     }
     
     else {
@@ -131,10 +128,18 @@ const getRound = (req,res)=>{ // Get the 10 most recent rounds
 };
 
 const postRound = (req,res)=>{
+    //Compare request data to a schema and return any errrors
+    const validatePost = ajv.compile(postRoundValidator);
+    let postErrors = validatePost(req.body); 
+    if(postErrors != null && validatePost.errors != null) {
+        console.log(validatePost.errors);
+        return res.send(validatePost.errors);
+    }
+    
     Song.findOne({"name":req.body.songName}).exec()
     .then(result =>{
         if(!result) {
-            res.send(result);
+            res.status(404).send(result);
         }
         else {
             let foundSong = result;
@@ -152,10 +157,11 @@ const postRound = (req,res)=>{
             foundSong.rounds.push(newRound);
             foundSong.save()
             .then(results=>{
-                res.send(newRound);
+                console.log(newRound)
+                res.status(201).send(newRound);
             })
             .catch(error=>{
-                res.send(error);
+                res.status(500).send(error);
             });
         }
     });

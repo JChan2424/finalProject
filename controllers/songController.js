@@ -1,8 +1,20 @@
-// const axios = require('axios');
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true, coerceTypes: true, useDefaults:'empty'});
+require("ajv-keywords")(ajv);
+require("ajv-formats")(ajv);
+require("ajv-errors")(ajv);
+
 const { Song } = require('../models/Song.js');
 
+const {getSongValidator, postSongValidator} = require('../validators/songValidation.js');
+
 const getSong = (req,res)=>{
-    
+    // Compare request data to a schema and return any errors
+    const validateGet = ajv.compile(getSongValidator);
+    let getErrors = validateGet(req.query); 
+    if(getErrors != null && validateGet.errors != null) {
+        return res.send(validateGet.errors);
+    }
     // Trim an array so that it only has ten elements.
     // Precondition: The array parameter has been initialized
     // Postcondition: An array consisting of only ten elements
@@ -29,7 +41,7 @@ const getSong = (req,res)=>{
         });
         return songArray;
     };
-    
+   
     if(req.query.name && !req.query.combo) { // Request has just the name
         Song.find({"name":req.query.name}).exec()
         .then(results=>{
@@ -76,7 +88,7 @@ const getSong = (req,res)=>{
             else {
                 songArray = findSongsWithCombo(results);
                 if(songArray.length <= 0) {
-                    res.send(songArray);
+                    res.send(results);
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);
@@ -97,6 +109,13 @@ const getSong = (req,res)=>{
 };
 
 const postSong = (req,res)=>{
+    //Compare request data to a schema and return any errors
+    const validatePost = ajv.compile(postSongValidator);
+    let getErrors = validatePost(req.body); 
+    if(getErrors != null && validatePost.errors != null) {
+        return res.send(validatePost.errors);
+    }
+    
     Song.findOne({"name":req.body.name}, {"group":req.body.group}).exec()
     .then(results=>{
         if(results == null) {

@@ -7,6 +7,7 @@ import NullResults from './NullResults.js'
 const Results = props => {
     const [show, setShow] = useState();
     let componentToRender;
+    console.log("results ", props.results)
     
     
     if(props.results.length <= 0 || props.results.data == undefined) {
@@ -15,7 +16,7 @@ const Results = props => {
     else {
         console.log("results to render: ", props.results.data)
         if(props.results.data.length <=0) {
-            componentToRender = <div><h2>Results</h2><p>No documents matching your parameters found. If you're trying to add a round, make sure that the song associated with the round is in the database.</p></div>
+            componentToRender = <div><h2>Results</h2><p>No documents matching your parameters found.</p> <p>If you're trying to add a round, make sure that the song associated with the round is in the database.</p></div>
         }
         else {
             componentToRender = <RenderResults results={props.results.data} setShow={setShow} show={show} requestType={props.requestType}/>;

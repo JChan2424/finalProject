@@ -9,7 +9,7 @@ const RenderResults = props => {
     const updateShow = event => {
         event.preventDefault();
     }
-    
+    console.log(props.results)
     return(
         <>
             <h2>Results</h2>

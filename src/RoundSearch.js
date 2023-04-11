@@ -1,4 +1,4 @@
-// Component for the form to search 
+// Component for the form to search
 import React from 'react';
 import axios from 'axios';
 const { useEffect, useState } = React;
@@ -8,19 +8,23 @@ const RoundSearch = props => {
     const updateSongName = event => {
     
         props.setSongName(event.target.value);
-        
-    }
+        console.log(props.songName)
+    };
     const updateFullCombo = event => {
-        
+        event.stopPropagation();
         props.setFullCombo(event.target.value);
-    }
+        console.log(props.fullCombo)
+    };
+    
+    const reset = event => {
+        props.setSongName(undefined);
+        props.setFullCombo(undefined);
+    };
     const makeRoundGetRequest = (event) => {
         event.preventDefault();
-        console.log("Request made")
-        console.log(props.fullCombo)
+        console.log(props.songName, props.fullCombo)
         axios.get(`../api/v1/rounds/?songName=${props.songName}&fullCombo=${props.fullCombo}`)
         .then(results => {
-            console.log("Results ", results)
             props.setResults(results);
             props.setRequestType("GET Round");
         })
@@ -40,11 +44,11 @@ const RoundSearch = props => {
                    <br />
                    <legend>Full combo: </legend>
                    <label htmlFor="full-combo">Yes: </label>
-                   <input type="radio" id="full-combo" name="fullCombo" value="true" onChange={event=>updateFullCombo(event)}/>
+                   <input type="radio" id="full-combo" name="fullCombo" value="true" onClick={event=>updateFullCombo(event)}/>
                    <label htmlFor="not-full">No: </label>
-                   <input type="radio" id="not-full" name="fullCombo" value="false" onChange={event=>updateFullCombo(event)} />
+                   <input type="radio" id="not-full" name="fullCombo" value="false" onClick={event=>updateFullCombo(event)} />
                     <br />
-                   <input type="submit" value="Search" />  <input type="reset" />
+                   <input type="submit" value="Search" />  <input type="reset" onClick={event=>reset(event)} />
                 </form>
             </div>
         </>

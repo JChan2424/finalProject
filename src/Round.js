@@ -23,29 +23,39 @@ const Round = props => {
     
     const updateCombo = event => {
         props.setFullCombo(event.target.value);
-        console.log(props.fullCombo)
     };
     
     const updateComments = event => {
           props.setComments(event.target.value);
     };
     
+    const reset = event => {
+        props.setComments(undefined);
+        props.setDifficulty(undefined);
+        props.setFullCombo(undefined);
+        props.setLevel(undefined);
+        props.setScore(undefined);
+        props.setSongName(undefined);
+    }
+    
     const makePostRequest = (event) => {
         event.preventDefault();
-        axios.post(`../api/v1/rounds/`, {
+        let round = {
             songName:props.songName,
             difficulty:props.difficulty,
             level:props.level,
             score:props.score,
             fullCombo:props.fullCombo,
             comments:props.comments
-        })
+        }
+        console.log(round)
+        axios.post(`../api/v1/rounds/`, round)
         .then(results => {
             props.setResults(results);
             props.setRequestType("POST Round");
         })
         .catch(error => {
-            console.log(error);
+            props.setResults(error)
         })
     }
     return (
@@ -75,14 +85,14 @@ const Round = props => {
                    <input type="number" name="score"min="0" required onChange={event=>updateScore(event)}/>
                    <legend>Full combo: </legend>
                    <label htmlFor="full-combo">Yes: </label>
-                   <input type="radio" id="full-combo" name="fullCombo" value="true" required onChange={event=>updateCombo(event)}/>
+                   <input type="radio" id="full-combo" name="fullCombo" value="true" onChange={event=>updateCombo(event)}/>
                    <label htmlFor="not-full">No: </label>
                    <input type="radio" id="not-full" name="fullCombo" value="false" onChange={event=>updateCombo(event)}/>
                    <br />
                    <label htmlFor="comments">Additional comments: </label>
                    <textarea name="comments" id="comments" cols="30" rows="2"onChange={event=>updateComments(event)}></textarea>
                    <br />
-                   <input type="submit" value="Submit" />  <input type="reset" />
+                   <input type="submit" value="Submit" />  <input type="reset" onClick={event=>reset(event)}/>
                 </form>
             </div>
         </>
