@@ -65,4 +65,5 @@ input {
     border: 5px groove cyan;
     padding: 10px;
     background-color: rgb(133,176,231);
+    overflow:scroll;
 }
