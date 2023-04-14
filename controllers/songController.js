@@ -92,6 +92,7 @@ const getSong = (req,res)=>{
                 }
                 else {
                     trimmedArray = trimToTenElements(songArray);
+                    console.log(trimmedArray);
                     res.send(trimmedArray);
                 }
             }
@@ -126,6 +127,7 @@ const postSong = (req,res)=>{
             });
             newSong.save()
             .then(result=>{
+                console.log(result)
                 res.status(201).send(result);
             })
             .catch(error=>{

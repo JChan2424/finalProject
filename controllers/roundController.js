@@ -109,7 +109,6 @@ const getRound = (req,res)=>{
                 }
                 else {
                     trimmedArray = trimToTenElements(roundArray);
-                    console.log(trimmedArray)
                     res.send(trimmedArray);
                 }            
             }
@@ -157,7 +156,6 @@ const postRound = (req,res)=>{
             foundSong.rounds.push(newRound);
             foundSong.save()
             .then(results=>{
-                console.log(newRound)
                 res.status(201).send(newRound);
             })
             .catch(error=>{
